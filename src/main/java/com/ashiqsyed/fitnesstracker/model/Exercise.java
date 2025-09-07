@@ -23,6 +23,7 @@ public class Exercise {
     @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ExerciseSet> exerciseSets = new HashSet<ExerciseSet>();
 
+    @Column(nullable = false)
     private String exerciseName;
 
     public Exercise() {
@@ -63,11 +64,11 @@ public class Exercise {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Exercise exercise = (Exercise) o;
-        return Objects.equals(exerciseId, exercise.exerciseId) && Objects.equals(strengthWorkout, exercise.strengthWorkout) && Objects.equals(exerciseSets, exercise.exerciseSets) && Objects.equals(exerciseName, exercise.exerciseName);
+        return Objects.equals(exerciseId, exercise.exerciseId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(exerciseId, strengthWorkout, exerciseSets, exerciseName);
+        return Objects.hashCode(exerciseId);
     }
 }

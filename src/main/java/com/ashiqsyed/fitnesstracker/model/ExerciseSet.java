@@ -69,11 +69,11 @@ public class ExerciseSet {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ExerciseSet that = (ExerciseSet) o;
-        return setNum == that.setNum && reps == that.reps && Double.compare(weight, that.weight) == 0 && Objects.equals(exerciseSetId, that.exerciseSetId) && Objects.equals(exercise, that.exercise);
+        return Objects.equals(exerciseSetId, that.exerciseSetId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(exerciseSetId, exercise, setNum, reps, weight);
+        return Objects.hashCode(exerciseSetId);
     }
 }

@@ -2,6 +2,7 @@ package com.ashiqsyed.fitnesstracker.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -15,18 +16,23 @@ public class StrengthWorkout {
     private UUID strengthWorkoutId;
 
     @OneToOne
-    @JoinColumn(name="workout_id")
+    @JoinColumn(name="workout_id", updatable = false, nullable = false)
     private Workout workout;
 
     @OneToMany(mappedBy = "strengthWorkout", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Exercise> exercises;
+    private Set<Exercise> exercises = new HashSet<>();
 
     public StrengthWorkout() {
 
     }
 
-    public StrengthWorkout(Workout workout) {
+    public StrengthWorkout(Workout workout, Set<Exercise> exercises) {
         this.workout = workout;
+        this.exercises = exercises;
+    }
+
+    public UUID getStrengthWorkoutId() {
+        return strengthWorkoutId;
     }
 
     public Workout getWorkout() {
@@ -60,11 +66,11 @@ public class StrengthWorkout {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StrengthWorkout that = (StrengthWorkout) o;
-        return Objects.equals(strengthWorkoutId, that.strengthWorkoutId) && Objects.equals(workout, that.workout) && Objects.equals(exercises, that.exercises);
+        return Objects.equals(strengthWorkoutId, that.strengthWorkoutId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(strengthWorkoutId, workout, exercises);
+        return Objects.hashCode(strengthWorkoutId);
     }
 }
